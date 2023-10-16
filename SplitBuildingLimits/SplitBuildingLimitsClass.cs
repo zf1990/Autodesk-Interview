@@ -27,7 +27,6 @@ public static class SplitBuildingLimitsClass<TPolygon> where TPolygon : IFeature
     public static IEnumerable<SplittedBuildingLimit> SplitBuildingLimits(List<TPolygon> buildingLimits, List<TPolygon> heightPlateaus)
     {
         Console.WriteLine("Splitting building limits according to height plateaus");
-        var gf = NetTopologySuite.NtsGeometryServices.Instance.CreateGeometryFactory(4326);
         List<SplittedBuildingLimit> splittedBuildingFeatures = new List<SplittedBuildingLimit>();
 
         foreach(var buildingLimit in buildingLimits)

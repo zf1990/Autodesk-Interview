@@ -37,7 +37,7 @@ namespace SplitBuildingLimits.GeoJSONValidators
                 // Doing this because covers didn't work as intended for some reason. May need to investigate further
                 HashSet<int> buildingLimitGeometryCordinateSet = buildingLimitGeometry.Coordinates.Select(c => c.GetHashCode()).ToHashSet();
 
-                // If it is a subset of heightplateaus cordinates, then all building limit geometry cordinates must be 
+                // If it is a subset of heightplateaus cordinates, then all building limit geometry cordinates must be within the other.
                 if (buildingLimitGeometryCordinateSet.IsSubsetOf(unionizedHeightGeometryCordinateSet))
                     continue;
 

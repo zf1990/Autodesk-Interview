@@ -85,6 +85,20 @@ namespace WebAPI.Controllers
                     };
                 }
             }
+            catch(Microsoft.Azure.Cosmos.CosmosException e) {
+                // This would indicate that the key is invalid and the item can't be found
+                if(e.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return new HttpResponseMessage()
+                    {
+                        StatusCode = HttpStatusCode.NotFound,
+                        Content = new StringContent("The projectId can't be found. Please check its value and try again.")
+                    };
+                } else
+                {
+                    throw e;
+                }
+            }
             catch (Exception e)
             {
                 if (e is ArgumentException || e is ArgumentNullException)

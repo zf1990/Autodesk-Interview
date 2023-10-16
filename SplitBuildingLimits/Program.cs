@@ -8,6 +8,9 @@ using Newtonsoft.Json;
 
 namespace SplitBuildingLimits;
 
+/// <summary>
+/// This should ideally be a class library project, but this is the processor layer for the API.
+/// </summary>
 public class SplitBuildingLimits
 {
     private static Guid projectId = Guid.NewGuid();
@@ -44,7 +47,7 @@ public class SplitBuildingLimits
 
         //Split the buildingLimits to heights
         var splitted = SplitBuildingLimitsClass<IFeature>.SplitBuildingLimits(Common.BuildingFeatures.ToList(), Common.HeightFeatures.ToList());
-        var strSplitted = JsonConvert.SerializeObject(splitted, Formatting.None,
+        var strSplitted = JsonConvert.SerializeObject(splitted, Formatting.Indented,
                         new JsonSerializerSettings()
                         {
                             ReferenceLoopHandling = ReferenceLoopHandling.Ignore
@@ -66,7 +69,6 @@ public class SplitBuildingLimits
             string.Equals(propertyName, Common.BuildingLimits, StringComparison.InvariantCultureIgnoreCase) ||
             string.Equals(propertyName, Common.SplittedBuildingLimits, StringComparison.InvariantCultureIgnoreCase))
         {
-            Console.WriteLine("Entered Get");
             string value = dataStore.GetData(projectId.ToString(), propertyName).GetAwaiter().GetResult();
             Console.WriteLine(value);
             //Returning a string for now. We can choose to deserialize object.
